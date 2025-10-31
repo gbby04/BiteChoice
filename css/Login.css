@@ -61,9 +61,8 @@
 
 .login-card {
     background-color: white;
-    opacity: 0.95;
     border-radius: 30px; /* Rounded corners for the card */
-    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05); /* Shadow for lift-off effect */
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.130); /* Shadow for lift-off effect */
     margin: 40px; /* Spacing from sides */
     padding: 30px;
     position: relative;
@@ -184,4 +183,5 @@
 .text-link {
     color: #FFA109; /* Orange for "Sign up" */
     font-weight: 600;
+
 }
