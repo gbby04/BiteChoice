@@ -1,0 +1,17 @@
+/* Custom radial gradient for the body background */
+    .bg-gradient-radial {
+        background-image: radial-gradient(at top left, var(--tw-gradient-stops)); /* Adjusted for top-left start */
+    }
+    /* Simple CSS spinner */
+    .loader {
+        border: 2px solid #FFF;
+        border-radius: 50%;
+        border-top: 2px solid #C48A45; /* theme-primary */
+        width: 16px;
+        height: 16px;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
