@@ -36,6 +36,9 @@
             'theme-social-border': '#D1C8BD', // Social button borders
             'theme-card-bg': '#FFFFFF',     // The main white card background
             'theme-subtext': '#8B7B71',     // For subtitles/helper text
+            'theme-arrow': '#D97706',        // For arrows/icons
+            'theme-arrow-hover': '#C48A45',   // For arrows/icons hover
+            'theme-brown-text': '#78350F',    // Additional brown text color
           }
         }
       }
@@ -48,11 +51,8 @@
 
     <!-- Top decorative wave and "Back" button -->
     <div class="relative w-full h-40 overflow-hidden" style="background-image: url('data:image/svg+xml;utf8,<svg viewBox=\'0 0 1440 320\' xmlns=\'http://www.w3.org/2000/svg\'><path fill=\'%23FDF9F6\' fill-opacity=\'1\' d=\'M0,192L80,186.7C160,181,320,171,480,181.3C640,192,800,224,960,224C1120,224,1280,192,1360,176L1440,160L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z\'></path></svg>'); background-repeat: no-repeat; background-size: cover;">
-        
-        <!-- Clickable "Back" button (Lucide Icon) -->
-        <a href="welcome.html" class="absolute top-8 left-8 flex items-center space-x-1 text-theme-heading hover:text-theme-primary transition-colors duration-200">
-            <i data-lucide="chevron-left" class="h-5 w-5"></i>
-            <span>Back</span>
+        <a href="welcome.html" class="absolute top-4 left-4 text-theme-arrow font-semibold hover:text-theme-arrow-hover transition-colors duration-200">
+            &larr; Back
         </a>
     </div>
 
@@ -61,10 +61,10 @@
         
         <!-- Welcome Section -->
         <div>
-            <h1 class="text-3xl font-bold text-center text-theme-heading mb-3">
+            <h1 class="text-3xl font-bold text-center text-theme-brown-text mb-3">
                 Welcome Back!
             </h1>
-            <p class="text-center text-theme-subtext text-sm mb-8">
+            <p class="text-center text-theme-brown-text text-sm mb-8">
                 Hungry but can’t choose? <br> Let BiteChoice help you out!
             </p>
 
