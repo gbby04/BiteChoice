@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fff7ed; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 10px; }
+    </style>
+    <script>
+        // Customizing Tailwind theme colors (same as profile page)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-bg': '#FFFBF5',
+                        'card-bg': '#FFF8F0',
+                        'brand-brown': '#C48A45',
+                        'brand-brown-hover': '#AF7B3E',
+                        'brand-caramel': '#D97706',
+                        'brand-text': '#78350F',
+                        'subcard-bg': '#FDF9F6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-app-bg">
+
+    <!-- Main Page Container -->
+    <div class="w-full min-h-screen bg-white shadow-2xl overflow-x-hidden">
+        
+        <!-- Scrollable Content Area -->
+        <div class="min-h-screen overflow-y-auto p-6 md:p-8">
+            
+            <!-- 1. Header with Back Button -->
+            <header class="flex items-center space-x-4 pb-6 border-b border-brand-caramel">
+                <a href="Profile.html" class="text-brand-caramel p-2 rounded-full hover:bg-card-bg transition-colors">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+                <h1 class="text-2xl md:text-3xl font-bold text-brand-text flex-1 mr-8">
+                    Subscription Plan
+                </h1>
+            </header>
+
+            <!-- 2. Intro Blurb -->
+            <section class="mt-6 md:mt-8 text-center">
+                <h2 class="text-xl md:text-2xl font-bold text-brand-text">Unlock Your Ultimate Food Companion</h2>
+                <p class="text-base text-stone-600 mt-2 max-w-2xl mx-auto">
+                    Upgrade to BiteChoice Premium and get exclusive access to tools that make eating smarter, easier, and more fun.
+                </p>
+            </section>
+
+            <!-- 3. Pricing Section -->
+            <section class="mt-8 md:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                
+                <!-- Monthly Plan -->
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-md flex flex-col">
+                    <h3 class="text-xl font-semibold text-brand-text">Monthly</h3>
+                    <div class="mt-2">
+                        <span class="text-4xl font-bold text-brand-text">RM3.90</span>
+                        <span class="text-stone-500">/ month</span>
+                    </div>
+                    <p class="text-stone-600 mt-3 flex-grow">Flexible, pay-as-you-go. Cancel anytime.</p>
+                    <button class="w-full mt-6 px-6 py-3 bg-white border-2 border-brand-caramel text-brand-caramel text-base font-semibold rounded-xl shadow-sm hover:bg-gray-50 transition-colors">
+                        Subscribe Now
+                    </button>
+                </div>
+
+                <!-- Annual Plan (Highlighted) -->
+                <div class="bg-card-bg border-2 border-brand-caramel rounded-2xl p-6 shadow-lg relative flex flex-col">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-caramel text-white text-sm font-semibold rounded-full shadow-md">
+                        Best Value
+                    </div>
+                    <h3 class="text-xl font-semibold text-brand-text">Annually</h3>
+                    <div class="mt-2">
+                        <span class="text-4xl font-bold text-brand-text">RM35.00</span>
+                        <span class="text-stone-500">/ year</span>
+                    </div>
+                    <p class="text-stone-600 mt-3 flex-grow">Save 25.21%! That's less than RM2.92 per month.</p>
+                    <button class="w-full mt-6 px-6 py-3 bg-brand-brown text-white text-base font-semibold rounded-xl shadow-md hover:bg-brand-brown-hover transition-colors">
+                        Subscribe Now
+                    </button>
+                </div>
+            </section>
+
+            <!-- 4. Features Section -->
+            <section class="mt-10 md:mt-12 mb-8">
+                <h2 class="text-xl md:text-2xl font-bold text-brand-text mb-6 text-center">What You'll Get</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                    <!-- Feature 1: Spin the Meal Wheel -->
+                    <div class="bg-gray-50 rounded-xl p-5 flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                            <!-- SVG Icon: Wheel -->
+                            <svg class="w-7 h-7 text-brand-caramel" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="#eee" />
+                                <path d="M 50 50 L 50 5 A 45 45 0 0 1 95 50 Z" fill="#FF6347" />
+                                <path d="M 50 50 L 95 50 A 45 45 0 0 1 50 95 Z" fill="#32CD32" />
+                                <path d="M 50 50 L 50 95 A 45 45 0 0 1 5 50 Z" fill="#3357FF" />                    
+                                <path d="M 50 50 L 5 50 A 45 45 0 0 1 50 5 Z" fill="#FFC300" />
+                                <circle cx="50" cy="50" r="10" fill="#fff" />
+                            </svg>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-text">Spin the Meal Wheel</h3>
+                            <p class="text-stone-600">A fun spinning wheel with random meal suggestions to help you decide what to eat.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2: Diet Planner -->
+                    <div class="bg-gray-50 rounded-xl p-5 flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <!-- SVG Icon: Calendar -->
+                            <svg class="w-7 h-7 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-text">Diet Planner</h3>
+                            <p class="text-stone-600">Allow users to create and manage personalised meal plans to achieve their health goals.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3: AI Chatbot -->
+                    <div class="bg-gray-50 rounded-xl p-5 flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <!-- SVG Icon: Chat -->
+                            <svg class="w-7 h-7 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.17 48.17 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.227V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-text">AI Chatbot</h3>
+                            <p class="text-stone-600">Answer user questions related to nutrition, food choices, or specific dietary needs.</p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4: Recipe Generator -->
+                    <div class="bg-gray-50 rounded-xl p-5 flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center">
+                            <!-- SVG Icon: Book -->
+                            <svg class="w-7 h-7 text-rose-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-text">Recipe Generator</h3>
+                            <p class="text-stone-600">Suggest recipes based on available ingredients users have at home. Reduce food waste!</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+</body>
+</html>
