@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-bg': '#FFFBF5',
+                        'card-bg': '#FFF8F0',
+                        'brand-brown': '#C48A45',
+                        'brand-caramel': '#D97706', 
+                        'brand-text': '#78350F',   
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 1. Hide Scrollbar for Chrome, Safari and Opera */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 2. Hide Scrollbar for IE, Edge and Firefox */
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-app-bg antialiased pb-24">
+
+    <div class="p-6">
+        <header class="mb-6">
+            <p class="text-md text-brand-brown">Good Morning,</p>
+            <h1 id="user-name" class="text-3xl font-bold text-brand-text">...</h1> 
+        </header>
+
+        <div class="flex space-x-3 mb-6">
+            <div class="relative flex-1">
+                <input type="text" placeholder="Search for food..." class="w-full py-3 pl-10 pr-4 bg-card-bg border border-transparent rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-caramel text-brand-text placeholder-brand-brown">
+                <svg class="w-5 h-5 text-brand-brown absolute left-3 top-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+            </div>
+
+            <button id="filter-open-btn" class="p-3 bg-card-bg rounded-xl shadow-sm hover:bg-gray-200 transition-colors flex-shrink-0">
+                <svg class="w-5 h-5 text-brand-text" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 12h9.75M10.5 18h9.75M3.75 6h1.5M3.75 12h1.5M3.75 18h1.5M6 6v.01M6 12v.01M6 18v.01" />
+                </svg>
+            </button>
+        </div>
+
+        <section class="mb-6">
+            <h3 class="text-lg font-bold text-brand-text mb-3">Suggestions for...</h3>
+            <div id="time-of-day-group" class="flex space-x-3 overflow-x-auto pb-2 hide-scrollbar">
+                <button class="time-chip px-5 py-2 bg-brand-caramel text-white text-sm font-semibold rounded-full shadow-sm" data-time="Morning">Morning</button>
+                <button class="time-chip px-5 py-2 bg-card-bg text-brand-text text-sm font-semibold rounded-full shadow-sm" data-time="Noon">Noon</button>
+                <button class="time-chip px-5 py-2 bg-card-bg text-brand-text text-sm font-semibold rounded-full shadow-sm" data-time="Evening">Evening</button>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-brand-text mb-4">Recommended For You</h2>
+            
+            <div id="loading-indicator" class="flex justify-center py-10">
+                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-brand-caramel"></div>
+            </div>
+
+            <div id="error-message" class="hidden text-center py-8">
+                <p class="text-red-500 font-bold">Oops! Could not load food.</p>
+                <button id="retry-btn" class="mt-2 text-brand-brown underline">Try Again</button>
+            </div>
+
+            <div id="recommendation-container" class="flex space-x-4 overflow-x-auto pb-3">
+                </div>
+        </section>
+    </div>
+
+    <div id="filter-modal" class="fixed inset-0 bg-black bg-opacity-60 flex flex-col justify-end hidden z-50">
+        <div class="w-full bg-app-bg rounded-t-2xl p-6 max-h-[85vh] flex flex-col overflow-hidden">
+            
+            <div class="flex justify-between items-center mb-6 flex-shrink-0">
+                <h2 class="text-xl font-bold text-brand-text">Filters</h2>
+                <button id="filter-close-btn" class="text-stone-400 hover:text-stone-600 text-3xl leading-none">&times;</button>
+            </div>
+            
+            <div class="overflow-y-auto space-y-6 flex-1 pr-2">
+                
+                <section>
+                    <h3 class="font-semibold text-brand-text mb-3">Categories</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="filter-chip-btn flex-1 min-w-[80px] py-2 bg-card-bg text-brand-text text-sm font-medium rounded-lg shadow-sm border border-transparent focus:outline-none">FastFood</button>
+                        <button class="filter-chip-btn flex-1 min-w-[80px] py-2 bg-card-bg text-brand-text text-sm font-medium rounded-lg shadow-sm border border-transparent focus:outline-none">Western</button>
+                        <button class="filter-chip-btn flex-1 min-w-[80px] py-2 bg-card-bg text-brand-text text-sm font-medium rounded-lg shadow-sm border border-transparent focus:outline-none">Asian</button>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="font-semibold text-brand-text mb-3">Dietary</h3>
+                    <div class="flex gap-2">
+                        <button class="filter-chip-btn flex-1 py-2 bg-card-bg text-brand-text text-sm font-medium rounded-lg shadow-sm">Halal</button>
+                        <button class="filter-chip-btn flex-1 py-2 bg-card-bg text-brand-text text-sm font-medium rounded-lg shadow-sm">Non-Halal</button>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="font-semibold text-brand-text mb-3">Distance</h3>
+                    <div class="px-1">
+                        <input type="range" min="1" max="10" value="5" class="w-full h-2 bg-stone-200 rounded-lg appearance-none cursor-pointer accent-brand-caramel">
+                        <div class="flex justify-between mt-2 text-xs text-brand-brown font-medium">
+                            <span>1km</span>
+                            <span>5km</span>
+                            <span>10km</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="font-semibold text-brand-text mb-3">Price Range</h3>
+                    <div class="flex gap-2">
+                        <button class="filter-chip-btn flex-1 py-2 bg-card-bg text-brand-text font-medium rounded-lg shadow-sm">$</button>
+                        <button class="filter-chip-btn flex-1 py-2 bg-card-bg text-brand-text font-medium rounded-lg shadow-sm">$$</button>
+                        <button class="filter-chip-btn flex-1 py-2 bg-card-bg text-brand-text font-medium rounded-lg shadow-sm">$$$</button>
+                    </div>
+                </section>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-stone-200 flex space-x-3 flex-shrink-0">
+                <button id="filter-reset-btn" class="w-1/2 py-3 bg-white text-brand-text font-bold rounded-xl shadow-sm border border-stone-200">Reset</button>
+                <button id="filter-apply-btn" class="w-1/2 py-3 bg-brand-caramel text-white font-bold rounded-xl shadow-md hover:bg-yellow-600">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/mainpage.js"></script>
+</body>
+</html>
