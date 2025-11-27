@@ -1,3 +1,4 @@
+<<<<<<< HEAD:frontend/src/html/Profile.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,4 +118,125 @@
     <!-- JS file -->
      <script src="../js/Profile.js"></script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fff7ed; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 10px; }
+    </style>
+    <script>
+        // Customizing Tailwind theme colors
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-bg': '#FFFBF5',
+                        'card-bg': '#FFF8F0',
+                        'brand-brown': '#C48A45',
+                        'brand-brown-hover': '#AF7B3E',
+                        'brand-caramel': '#D97706',
+                        'brand-text': '#78350F',
+                        'subcard-bg': '#FDF9F6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-app-bg antialiased">
+
+    <!-- follow all screen sizes-->
+    <div class="w-full min-h-screen bg-white shadow-2xl overflow-x-hidden"> 
+        
+        <div class="min-h-screen overflow-y-auto p-6 md:p-8">
+
+            <div class="w-full flex justify-start mb-2">
+                <a href="mainpage.html" class="text-brand-caramel p-2 -ml-2 rounded-full hover:bg-card-bg transition-colors" aria-label="Go Back">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+            </div>
+
+            <section class="flex flex-col sm:flex-row items-center sm:space-x-6 pb-6 border-b border-brand-caramel">
+                <img id="profile-pic" src="https://placehold.co/100x100/EAB308/78350F?text=?&font=sans-serif" 
+                     alt="Profile Picture" 
+                     class="w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-brand-caramel shadow-md flex-shrink-0">
+                
+                <div class="flex-1 text-center sm:text-left mt-4 sm:mt-0">
+                    <h1 id="user-name" class="text-3xl md:text-3xl font-bold text-brand-text">Loading...</h1>
+                    <button id="edit-profile-btn" class="mt-2 px-6 py-2 bg-gradient-to-r from-orange-500 to-amber-600 text-white text-sm font-semibold rounded-full shadow-sm hover:shadow-orange-500/50 transition-colors">
+                        Edit Profile
+                    </button>
+                </div>
+            </section>
+            <section class="mt-6 md:mt-8">
+                <h2 class="text-xl md:text-2xl font-bold text-brand-text mb-4">Reviews</h2>
+                
+                <div id="review-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 shadow-md">
+                    </div>
+
+                <button class="w-full text-center text-brand-caramel font-semibold py-3 mt-5 hover:text-brand-brown transition-colors">
+                    See More Reviews
+                </button>
+            </section>
+
+            <section class="mt-4 md:mt-6">
+                <h2 class="text-xl md:text-2xl font-bold text-brand-text mb-4">More on BiteChoice</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <a href="PastEatingHistory.html" class="flex justify-between items-center bg-white p-4 rounded-xl shadow-md hover:bg-gray-50 transition-colors">
+                        <span class="font-semibold text-stone-700 text-base md:text-lg">Past Eating History</span>
+                        <span class="text-stone-400 font-bold">&gt;</span>
+                    </a>
+                    <a href="MyFavourite.html" class="flex justify-between items-center bg-white p-4 rounded-xl shadow-md hover:bg-gray-50 transition-colors">
+                        <span class="font-semibold text-stone-700 text-base md:text-lg">Favourite Restaurants</span>
+                        <span class="text-stone-400 font-bold">&gt;</span>
+                    </a>
+                    <a href="SubscriptionPlan.html" class="flex justify-between items-center bg-white p-4 rounded-xl shadow-md hover:bg-gray-50 transition-colors">
+                        <span class="font-semibold text-stone-700 text-base md:text-lg">Subscription Plan</span>
+                        <span class="text-stone-400 font-bold">&gt;</span>
+                    </a>
+                    <a href="" class="flex justify-between items-center bg-white p-4 rounded-xl shadow-md hover:bg-gray-50 transition-colors">
+                        <span class="font-semibold text-stone-700 text-base md:text-lg">Settings</span>
+                        <span class="text-stone-400 font-bold">&gt;</span>
+                    </a>
+                </div>
+            </section>
+
+            <section class="mt-8 mb-8">
+                <button class="w-full bg-white text-red-600 font-bold py-3 md:py-4 text-base md:text-lg rounded-xl shadow-md hover:bg-gray-50 transition-colors">
+                    Log Out
+                </button>
+            </section>
+
+        </div>
+    </div>
+
+
+    <div id="review-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm">
+            <div class="flex justify-between items-start mb-2">
+                <div>
+                    <h3 id="modal-title" class="text-xl font-bold text-brand-text">Loading...</h3>
+                    <div id="modal-rating" class="text-amber-500 text-sm"></div>
+                </div>
+                <button id="close-modal-btn" class="text-stone-400 hover:text-stone-600 text-2xl">&times;</button>
+            </div>
+            <p id="modal-text" class="text-stone-600">Loading review details...</p>
+        </div>
+    </div>
+
+    <!-- JS file -->
+     <script src="../js/Profile.js"></script>
+</body>
+>>>>>>> a3f64e425ad1588c57b7478dbab2a7f9bea6c5db:html/Profile.html
 </html>

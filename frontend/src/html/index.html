@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Welcome to BiteChoice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            'brand-dark': '#4A3B32', 
+            'brand-cream': '#FFF8F0',
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+    </script>
+</head>
+
+<body class="antialiased h-[100dvh] w-full overflow-hidden bg-[#FDFBF7] flex justify-center">
+
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] right-[-10%] w-[50vh] h-[50vh] bg-orange-200/40 rounded-full blur-[80px]"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[50vh] h-[50vh] bg-amber-200/30 rounded-full blur-[80px]"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-md h-full flex flex-col px-6 py-6 md:py-10">
+
+        <div class="flex-grow flex flex-col items-center justify-center animate-fade-in-up">
+            
+            <div class="w-48 md:w-64 transform transition hover:scale-105 duration-500">
+                <img 
+                    src="logo.png" 
+                    alt="BiteChoice Logo" 
+                    class="w-full h-auto drop-shadow-2xl"
+                >
+            </div>
+
+            <h2 class="mt-6 text-2xl md:text-3xl font-extrabold text-brand-dark tracking-tight text-center">
+                Decide. Eat. Enjoy.
+            </h2>
+            <p class="mt-2 text-gray-500 text-center text-sm md:text-base max-w-xs mx-auto leading-relaxed">
+                Discover your next meal in seconds.
+            </p>
+
+        </div>
+
+        <div class="w-full flex-shrink-0 flex flex-col space-y-4 pb-4 md:pb-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+            
+            <a href="newSignup.html" class="group relative flex w-full justify-center items-center rounded-2xl bg-gradient-to-r from-orange-500 to-amber-600 px-6 py-4 text-lg font-bold text-white shadow-lg shadow-orange-500/30 transition-all duration-300 hover:shadow-orange-500/50 hover:-translate-y-1 active:scale-95">
+                Let's get started
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </a>
+            
+            <a href="newLogin.html" class="flex w-full justify-center items-center rounded-2xl bg-white border border-gray-100 px-6 py-4 text-lg font-bold text-brand-dark shadow-sm hover:bg-gray-50 hover:border-gray-200 transition-all duration-200 active:scale-95">
+                I already have an account
+            </a>
+
+            <p class="text-xs text-gray-400 text-center mt-2 md:mt-4">
+                By continuing, you agree to our 
+                <a href="#" class="underline hover:text-orange-600 transition-colors">Terms</a> & 
+                <a href="#" class="underline hover:text-orange-600 transition-colors">Privacy Policy</a>
+            </p>
+        </div>
+
+    </div>
+</body>
+</html>

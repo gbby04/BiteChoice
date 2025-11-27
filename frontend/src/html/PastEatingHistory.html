@@ -1,3 +1,4 @@
+<<<<<<< HEAD:frontend/src/html/PastEatingHistory.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -134,4 +135,142 @@
         </svg>
     </a>   
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Eating History</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fff7ed; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 10px; }
+    </style>
+    <script>
+        // Customizing Tailwind theme colors (Copied from your Profile page)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-bg': '#FFFBF5',
+                        'card-bg': '#FFF8F0',
+                        'brand-brown': '#C48A45',
+                        'brand-brown-hover': '#AF7B3E',
+                        'brand-caramel': '#D97706',
+                        'brand-text': '#78350F',
+                        'subcard-bg': '#FDF9F6',
+                        'text-button' : 'bg-gradient-to-r from-orange-500 to-amber-600 bg-clip-text text-transparent',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-app-bg antialiased">
+
+    <div class="w-full min-h-screen bg-white shadow-2xl overflow-x-hidden"> 
+        
+        <div class="min-h-screen overflow-y-auto p-6 md:p-8">
+            
+            <header class="flex items-center space-x-4 pb-6 border-b border-brand-caramel">
+                <a href="Profile.html" class="text-brand-caramel p-2 rounded-full hover:bg-card-bg transition-colors">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+                <h1 class="text-2xl md:text-3xl font-bold text-brand-text flex-1 mr-8">
+                    Past Eating History
+                </h1>
+            </header>
+
+            <section class="mt-6 md:mt-8">
+                <h2 class="text-xl md:text-2xl font-bold text-brand-text mb-4">Your Visits</h2>
+                
+                <div id="history-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <p class="text-stone-500 col-span-full">Loading your history...</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="log-visit-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden">
+        
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md max-h-[90vh] flex flex-col">
+            
+            <div class="flex-shrink-0">
+                <div class="flex justify-between items-start mb-2">
+                    <div>
+                        <h3 id="modal-restaurant-name" class="text-xl font-bold text-brand-text">How was [Restaurant]?</h3>
+                        <p id="modal-visit-date" class="text-sm text-stone-500">Visited on [Date]</p>
+                    </div>
+                    <button id="modal-close-btn" class="text-stone-400 hover:text-stone-600 text-2xl">&times;</button>
+                </div>
+                <hr class="mb-4">
+            </div>
+
+            <div class="flex-1 overflow-y-auto pr-2 -mr-2" style="scrollbar-gutter: stable;">
+                <form id="modal-log-form" class="space-y-4">
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-brand-text mb-2">What did you order?</label>
+                        
+                        <div id="modal-item-list" class="space-y-2 mb-3">
+                            <p class="text-sm text-gray-500 text-center">No items added yet.</p>
+                        </div>
+
+                        <div class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg">
+                            <input type="text" id="modal-item-name" placeholder="E.g., Chicken Chop" class="flex-1 min-w-0 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-brand-caramel">
+                            <input type="number" id="modal-item-price" placeholder="Price (RM)" step="0.01" min="0" class="w-24 px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-brand-caramel">
+                            <button type="button" id="modal-add-item-btn" class="bg-brand-caramel text-white font-bold w-9 h-9 rounded-md flex-shrink-0 flex items-center justify-center hover:bg-brand-brown transition-colors">+</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="modal-total-spent" class="block text-sm font-semibold text-brand-text mb-1">Total Spent (RM) <span class="text-xs font-light text-gray-500">(Optional)</span></label>
+                        <input type="number" id="modal-total-spent" name="modal-total-spent" placeholder="Auto-calculated or enter manually" step="0.01" min="0" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-caramel focus:border-transparent">
+                        <p class="text-xs text-gray-500 mt-1">Leave blank to auto-calculate from items.</p>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="flex-shrink-0 pt-4 mt-4 border-t">
+                <button id="modal-save-btn" class="w-full py-3 bg-brand-brown text-white text-lg font-bold rounded-xl shadow-lg hover:bg-brand-brown-hover transition-colors">
+                    Save to History
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="review-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm">
+            <div class="flex justify-between items-start mb-2">
+                <div>
+                    <h3 id="modal-title" class="text-xl font-bold text-brand-text">Loading...</h3>
+                    <div id="modal-rating" class="text-stone-500 text-sm"></div>
+                </div>
+                <button id="close-modal-btn" class="text-stone-400 hover:text-stone-600 text-2xl">&times;</button>
+            </div>
+            
+            <p id="modal-text" class="text-brand-text font-bold text-lg mb-3">Loading...</p>
+
+            <h4 class="font-semibold text-brand-text text-sm mb-2">Items Ordered:</h4>
+            <ul id="modal-details-list" class="text-stone-600 text-sm space-y-1 max-h-40 overflow-y-auto">
+                </ul>
+        </div>
+    </div>
+
+    <script src="../js/PastEatingHistory.js"></script>
+
+    <a href="LogVisit.html" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-gradient-to-r from-orange-500 to-amber-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-brand-brown-hover transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-7 h-7">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+    </a>   
+</body>
+>>>>>>> a3f64e425ad1588c57b7478dbab2a7f9bea6c5db:html/PastEatingHistory.html
 </html>

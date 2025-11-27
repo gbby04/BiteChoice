@@ -1,3 +1,4 @@
+<<<<<<< HEAD:frontend/src/html/NearbyRestaurants.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -168,4 +169,176 @@
 
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Restaurants - BiteChoice</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar from your code */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fff7ed; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 10px; }
+    </style>
+    <script>
+        // Your exact Tailwind theme configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'app-bg': '#FFFBF5',
+                        'card-bg': '#FFF8F0',
+                        'brand-brown': '#C48A45',
+                        'brand-brown-hover': '#AF7B3E',
+                        'brand-caramel': '#D97706',
+                        'brand-text': '#78350F',
+                        'subcard-bg': '#FDF9F6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-app-bg antialiased">
+
+    <div class="w-full min-h-screen bg-white shadow-2xl overflow-hidden">
+        
+        <div class="h-screen flex flex-col">
+
+            <header class="flex items-center space-x-4 pb-6 border-b border-brand-caramel">
+                <a href="mainpage.html" class="absolute top-3 text-brand-caramel p-2 rounded-full hover:bg-card-bg transition-colors">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                </a>
+                <h1 class="text-2xl md:text-3xl mt-3 font-bold text-brand-text text-center flex-1 mr-8">
+                    Nearby Restaurants
+                </h1>
+            </header>
+
+            <div id="map-container" class="w-full h-2/5 bg-gray-200 flex-shrink-0">
+                <div id="map-placeholder" class="w-full h-full flex items-center justify-center">
+                    <span class="text-gray-500 font-semibold">Map will be loaded here...</span>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 md:p-8">
+                
+                <h2 class="text-xl md:text-2xl font-bold text-brand-text mb-4">Restaurants Near You</h2>
+                
+                <div id="restaurant-list" class="space-y-4">
+                    
+                    <div class="bg-white p-4 rounded-xl shadow-md flex space-x-4 animate-pulse">
+                        <div class="w-20 h-20 rounded-lg bg-gray-200"></div>
+                        <div class="flex-1 space-y-3 py-1">
+                            <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                            <div class="h-3 bg-gray-200 rounded w-full"></div>
+                            <div class="h-3 bg-gray-200 rounded w-1/2"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- Mock Data and JavaScript ---
+        // This script simulates fetching and displaying restaurant data.
+
+        // 1. Mock database of restaurants
+        const mockRestaurants = [
+            {
+                name: "The Golden Fork",
+                address: "123 Culinary Ave, Sibu",
+                distance: "0.8 km",
+                rating: 4.5,
+                reviewCount: 120,
+                image: "https://placehold.co/80x80/EAB308/78350F?text=Bite&font=sans-serif"
+            },
+            {
+                name: "Caramel Cafe",
+                address: "456 Sweet Street, Sibu",
+                distance: "1.2 km",
+                rating: 4.0,
+                reviewCount: 88,
+                image: "https://placehold.co/80x80/C48A45/FFF?text=Eat&font=sans-serif"
+            },
+            {
+                name: "Sibu Noodle House",
+                address: "789 Main Road, Sibu",
+                distance: "1.5 km",
+                rating: 4.8,
+                reviewCount: 230,
+                image: "https://placehold.co/80x80/78350F/FFF?text=Food&font=sans-serif"
+            },
+            {
+                name: "Quick Bite",
+                address: "101 Fast Lane, Sibu",
+                distance: "2.1 km",
+                rating: 3.5,
+                reviewCount: 45,
+                image: "https://placehold.co/80x80/D97706/FFF?text=Go&font=sans-serif"
+            }
+        ];
+
+        // 2. Function to render the list
+        function renderRestaurantList() {
+            const listContainer = document.getElementById('restaurant-list');
+            
+            // Clear the loading skeleton
+            listContainer.innerHTML = ''; 
+
+            // Loop through the mock data and create an HTML card for each restaurant
+            mockRestaurants.forEach(restaurant => {
+                const restaurantCard = `
+                    <div class="bg-white p-4 rounded-xl shadow-md flex items-start space-x-4 transition-transform hover:scale-[1.02] cursor-pointer">
+                        <img src="${restaurant.image}" alt="${restaurant.name}" class="w-20 h-20 rounded-lg object-cover flex-shrink-0 border border-brand-caramel/20">
+                        
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-brand-text text-lg">${restaurant.name}</h3>
+                                <span class="text-sm font-semibold text-brand-caramel flex-shrink-0 ml-2">${restaurant.distance}</span>
+                            </div>
+                            
+                            <p class="text-stone-600 text-sm mt-1">${restaurant.address}</p>
+                            
+                            <div class="flex items-center mt-2">
+                                <span class="text-yellow-500">${'★'.repeat(Math.floor(restaurant.rating))}${'☆'.repeat(5 - Math.floor(restaurant.rating))}</span>
+                                <span class="text-xs text-gray-500 ml-2">(${restaurant.reviewCount} reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add the new card to the list
+                listContainer.innerHTML += restaurantCard;
+            });
+        }
+
+        // 3. Run the functions when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate a network delay (like fetching data)
+            setTimeout(() => {
+                // Render the restaurant list
+                renderRestaurantList();
+
+                // Simulate the map loading
+                const mapPlaceholder = document.getElementById('map-placeholder');
+                mapPlaceholder.innerHTML = `
+                    <img src="https://i.imgur.com/g05A2yA.png" alt="Mock map" class="w-full h-full object-cover">
+                `;
+                // In a real app, this is where you would initialize your Google Map
+                // e.g., initMap(); 
+                
+            }, 1500); // 1.5 second delay
+        });
+
+    </script>
+</body>
+>>>>>>> a3f64e425ad1588c57b7478dbab2a7f9bea6c5db:html/NearbyRestaurants.html
 </html>
