@@ -30,7 +30,7 @@ const authController = {
 
       const password_hash = await bcrypt.hash(password, SALT_ROUNDS);
 
-      const user = await User.create({ name, email, password_hash });
+      const user = await User.create({ name, email, password_hash:password_hash });
 
       // create default empty preferences row
       await UserPreferences.create({ user_id: user.user_id });
@@ -89,4 +89,4 @@ const authController = {
   },
 };
 
-module.exports = authController;
+module.exports = authController
