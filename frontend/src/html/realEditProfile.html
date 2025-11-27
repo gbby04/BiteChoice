@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Edit Profile</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'app-bg': '#FFFBF5',      /* Creamy Background */
+                        'card-bg': '#FFFFFF',     /* Pure White */
+                        'brand-brown': '#8D6E63', /* Softer Brown */
+                        'brand-dark': '#4E342E',  /* Dark Brown */
+                        'brand-caramel': '#D97706', /* Accent Orange */
+                        'brand-light': '#FFE0B2', /* Light Highlight */
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(217, 119, 6, 0.1)',
+                        'nav': '0 -4px 20px rgba(0,0,0,0.03)',
+                        'input': '0 2px 10px rgba(0,0,0,0.02)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Custom date input styling to match theme */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(44%) sepia(13%) saturate(632%) hue-rotate(328deg) brightness(92%) contrast(87%);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-app-bg text-brand-dark antialiased min-h-screen flex flex-col">
+
+    <div class="px-6 pt-8 pb-4 flex justify-between items-center sticky top-0 bg-app-bg/95 backdrop-blur-sm z-20">
+        <a href="realProfile.html" class="p-3 bg-white rounded-2xl shadow-soft text-brand-dark hover:text-brand-caramel transition-colors group">
+            <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+        </a>
+        
+        <h1 class="text-lg font-bold text-brand-dark">Edit Profile</h1>
+        
+        <div class="w-12"></div> 
+    </div>
+
+    <form class="flex-1 px-6 pb-10 overflow-y-auto hide-scrollbar" action="#" method="POST">
+        
+        <div class="flex flex-col items-center mb-8 mt-2">
+            <div class="relative group cursor-pointer">
+                <div class="w-32 h-32 rounded-full p-1 bg-white shadow-soft relative overflow-hidden">
+                    <img src="https://ui-avatars.com/api/?name=Gabriela+S&background=D97706&color=fff&size=200" alt="Profile" class="w-full h-full object-cover rounded-full opacity-100 group-hover:opacity-90 transition-opacity">
+                </div>
+                
+                <button class="absolute bottom-0 right-0 p-2 bg-brand-dark text-white rounded-full shadow-lg border-2 border-white">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </button>
+            </div>
+            <span class="text-xs text-brand-brown mt-3 font-medium">Tap to change photo</span>
+        </div>
+
+        <div class="space-y-6">
+            
+            <div class="group">
+                <label class="block text-sm font-semibold text-brand-brown mb-2 ml-1">Full Name</label>
+                <div class="relative">
+                    <input type="text" value="Gabriela Barbara" class="w-full pl-4 pr-4 py-4 bg-white rounded-2xl border-none shadow-input text-brand-dark font-medium focus:ring-2 focus:ring-brand-caramel/50 focus:outline-none transition-shadow" placeholder="Enter your name">
+                </div>
+            </div>
+
+            <div class="group">
+                <label class="block text-sm font-semibold text-brand-brown mb-2 ml-1">Gender</label>
+                <div class="relative">
+                    <select class="w-full pl-4 pr-10 py-4 bg-white rounded-2xl border-none shadow-input text-brand-dark font-medium focus:ring-2 focus:ring-brand-caramel/50 focus:outline-none appearance-none transition-shadow">
+                        <option value="female" selected>Female</option>
+                        <option value="male">Male</option>
+                        <option value="non-binary">Non-binary</option>
+                        <option value="prefer-not-to-say">Prefer not to say</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                        <svg class="w-5 h-5 text-brand-brown" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group">
+                <label class="block text-sm font-semibold text-brand-brown mb-2 ml-1">Birthday</label>
+                <div class="relative">
+                    <input type="date" value="2004-01-22" class="w-full pl-4 pr-4 py-4 bg-white rounded-2xl border-none shadow-input text-brand-dark font-medium focus:ring-2 focus:ring-brand-caramel/50 focus:outline-none transition-shadow">
+                </div>
+            </div>
+
+            <div class="group">
+                <div class="flex justify-between items-center mb-2 ml-1">
+                    <label class="block text-sm font-semibold text-brand-brown">Email Address</label>
+                    <span class="text-[10px] uppercase font-bold tracking-wider text-stone-400 bg-stone-100 px-2 py-0.5 rounded-md">Locked</span>
+                </div>
+                <div class="relative">
+                    <input type="email" value="gbby04@gmail.com" readonly class="w-full pl-11 pr-4 py-4 bg-stone-100 rounded-2xl border border-stone-200 text-stone-500 font-medium focus:outline-none cursor-not-allowed select-none">
+                    
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                        <svg class="w-5 h-5 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-10 mb-4">
+            <button type="button" class="w-full py-4 bg-brand-dark text-white font-bold text-lg rounded-2xl shadow-lg shadow-brand-dark/20 hover:bg-brand-dark/90 active:scale-[0.98] transition-all flex justify-center items-center gap-2">
+                <span>Save Changes</span>
+            </button>
+        </div>
+
+    </form>
+
+</body>
+</html>

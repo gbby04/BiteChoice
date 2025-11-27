@@ -1,49 +1,48 @@
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
+// src/models/index.js (or backend/models/index.js)
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || 'development';
+
+// 1. Load the config file we created earlier
+// This automatically loads your .env variables (Port 5000, Host 127.0.0.1)
+const config = require(__dirname + '/../config/config.js')[env];
 
 const db = {};
 
-// Load environment variables
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASS,
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: "postgres",
-    logging: false
-  }
-);
+// 2. Initialize Sequelize using that config
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
 
-// Auto-load all model files inside /models directory
+// 3. Load all models in this folder
 fs.readdirSync(__dirname)
-  .filter((file) => {
+  .filter(file => {
     return (
-      file.indexOf(".") !== 0 &&
+      file.indexOf('.') !== 0 &&
       file !== basename &&
-      file.slice(-3) === ".js"
+      file.slice(-3) === '.js' &&
+      file.indexOf('.test.js') === -1
     );
   })
-  .forEach((file) => {
-    const model = require(path.join(__dirname, file))(
-      sequelize,
-      Sequelize.DataTypes
-    );
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
 
-// Run associations (if model.associate exists)
-Object.keys(db).forEach((modelName) => {
+// 4. Setup associations (relations)
+Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
 
-// Export models + sequelize instance
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

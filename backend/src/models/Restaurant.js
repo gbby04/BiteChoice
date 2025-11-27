@@ -9,9 +9,17 @@ module.exports = (sequelize) => {
     },
     name: DataTypes.STRING,
     address: DataTypes.TEXT,
+    
+    // Location Data
     latitude: DataTypes.FLOAT,
     longitude: DataTypes.FLOAT,
-    price_range: DataTypes.STRING,
+    
+    // --- NEW COLUMNS ADDED ---
+    average_price: DataTypes.INTEGER, // Needed for the Price Slider (e.g. 25)
+    image: DataTypes.STRING,          // Needed for the Food Card UI
+    // -------------------------
+
+    price_range: DataTypes.STRING,    // You can keep this for "$$" display if you want
     cuisine_type: DataTypes.STRING,
     is_halal: DataTypes.BOOLEAN,
   });

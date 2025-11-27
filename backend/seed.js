@@ -1,20 +1,31 @@
 // seed.js
 require("dotenv").config();
-
 const path = require("path");
 const fs = require("fs");
 
 console.log("🚀 Starting custom seeding...");
 
-const models = require("./src/models"); // loads your sequelize instance + models
+const models = require("./src/models");
 const sequelize = models.sequelize;
 
 async function runSeeders() {
   try {
+    // ---------------------------------------------------------
+    // NEW LINE: Create the tables first!
+    // { force: true } DELETES existing data to start fresh
+    // ---------------------------------------------------------
+    await sequelize.sync({ force: true });
+    console.log("✅ Tables created successfully.");
+
     // Path to your seeders folder
     const seedersPath = path.join(__dirname, "src", "seeders");
 
-    // Get all JS files in seeders folder, sorted alphabetically
+    // Check if folder exists
+    if (!fs.existsSync(seedersPath)) {
+        console.error("❌ Folder src/seeders not found! Please create it.");
+        return;
+    }
+
     const files = fs
       .readdirSync(seedersPath)
       .filter(file => file.endsWith(".js"))
@@ -22,7 +33,6 @@ async function runSeeders() {
 
     console.log("📌 Found seed files:", files);
 
-    // Execute each seeder in order
     for (const file of files) {
       console.log(`➡ Running seeder: ${file}`);
       const seeder = require(path.join(seedersPath, file));

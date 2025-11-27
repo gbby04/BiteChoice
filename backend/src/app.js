@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -20,6 +22,7 @@ app.use("/meal-plans", require("./routes/mealPlanRoutes"));
 app.use("/recipes", require("./routes/recipeRoutes"));
 app.use("/chatbot", require("./routes/chatbotRoutes"));
 app.use("/search", require("./routes/searchRoutes"));
+app.use("/user", require("./routes/userRoutes"));
 
 // health check
 app.get("/", (req, res) => {
@@ -27,3 +30,8 @@ app.get("/", (req, res) => {
 });
 
 module.exports = app;
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
