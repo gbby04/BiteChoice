@@ -1,62 +1,79 @@
-/** 
- * Feature Module: Subscription System
- * STATUS: FUTURE FEATURE (Not implemented in prototype)
- * 
- * This file is included for system planning and scalability.
- * Backend routes are inactive in the prototype.
- */
-
 const db = require("../models");
-const { Review } = db;
+const { Review, User, Restaurant } = db;
+const { Op } = require("sequelize");
 
 const reviewController = {
-  addReview: async (req, res) => {
-    try {
-      const userId = req.user.id;
-      const { restaurant_id, dish_id, rating, review_text } = req.body;
-      if (!restaurant_id && !dish_id) {
-        return res.status(400).json({ error: "restaurant_id or dish_id is required" });
-      }
-      if (!rating || rating < 1 || rating > 5) {
-        return res.status(400).json({ error: "rating must be 1-5" });
-      }
+    // GET /reviews - Fetches all reviews, optionally filtered by search/sort
+    getCommunityReviews: async (req, res) => {
+        try {
+            const { search = '', sort = 'newest' } = req.query;
+            let orderCriteria = [['createdAt', 'DESC']];
 
-      const review = await Review.create({
-        user_id: userId,
-        restaurant_id: restaurant_id || null,
-        dish_id: dish_id || null,
-        rating,
-        review_text,
-      });
+            if (sort === 'top') {
+                orderCriteria = [['rating', 'DESC']];
+            } else if (sort === 'lowest') {
+                orderCriteria = [['rating', 'ASC']];
+            }
 
-      res.status(201).json({ message: "Review added", review });
-    } catch (error) {
-      console.error("review.add:", error);
-      res.status(500).json({ error: "Failed to add review" });
+            const reviews = await Review.findAll({
+                where: {
+                    // Filter based on restaurant name or content
+                    [Op.or]: [
+                        { content: { [Op.iLike]: `%${search}%` } },
+                        // This assumes you can search by associated restaurant name
+                        // NOTE: Requires 'include' logic for search to be fully accurate
+                    ]
+                },
+                include: [
+                    { model: User, attributes: ['name'] }, // To show who wrote the review
+                    { model: Restaurant, attributes: ['name', 'cuisine_type'] } // To show what was reviewed
+                ],
+                order: orderCriteria
+            });
+
+            res.json(reviews);
+        } catch (error) {
+            console.error("review.getCommunityReviews error:", error);
+            res.status(500).json({ error: "Failed to load community reviews" });
+        }
+    },
+
+// ... inside authController = { ...
+
+    submitReview: async (req, res) => {
+        try {
+            // UserId is available via authMiddleware
+            const userId = req.user.userId;
+            const { restaurant_name, rating, content } = req.body; 
+
+            // Find the restaurant ID (assuming the name is passed from the frontend)
+            const restaurant = await Restaurant.findOne({ where: { name: restaurant_name } });
+
+            if (!restaurant) {
+                return res.status(404).json({ error: "Restaurant not found." });
+            }
+
+            const newReview = await Review.create({
+                user_id: userId,
+                restaurant_id: restaurant.restaurant_id,
+                rating: rating,
+                content: content,
+                // Assuming other required fields like createdAt/updatedAt are handled automatically
+            });
+
+            res.status(201).json({ 
+                message: "Review posted successfully!", 
+                review: newReview 
+            });
+
+        } catch (error) {
+            console.error("review.submitReview error:", error);
+            res.status(500).json({ error: "Failed to post review. Check logs." });
+        }
     }
-  },
-
-  getRestaurantReviews: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const reviews = await Review.findAll({ where: { restaurant_id: id }, order: [["createdAt", "DESC"]] });
-      res.json({ reviews });
-    } catch (error) {
-      console.error("review.getRestaurant:", error);
-      res.status(500).json({ error: "Failed to load restaurant reviews" });
-    }
-  },
-
-  getDishReviews: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const reviews = await Review.findAll({ where: { dish_id: id }, order: [["createdAt", "DESC"]] });
-      res.json({ reviews });
-    } catch (error) {
-      console.error("review.getDish:", error);
-      res.status(500).json({ error: "Failed to load dish reviews" });
-    }
-  },
+    // ... rest of the controller
 };
 
 module.exports = reviewController;
+
+
