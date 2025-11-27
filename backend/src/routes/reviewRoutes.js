@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const reviewController = require("../controllers/reviewController");
-const auth = require("../middleware/authMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/", auth, reviewController.addReview);
-router.get("/restaurant/:id", reviewController.getRestaurantReviews);
-router.get("/dish/:id", reviewController.getDishReviews);
+// GET /reviews is public, POST /reviews requires auth
+router.get("/", reviewController.getCommunityReviews);
+router.post("/", authMiddleware, reviewController.submitReview); 
 
 module.exports = router;
