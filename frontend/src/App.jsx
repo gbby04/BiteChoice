@@ -7,7 +7,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 
 // === 2. MAIN TAB PAGES (With Navbar) ===
-import Home from './Home.jsx';
+import Home from './pages/Home.jsx';
 import FavouritePage from './pages/FavouritePage.jsx';
 import HistoryPage from './pages/HistoryPage.jsx';
 import ReviewPage from './pages/ReviewPage.jsx';
