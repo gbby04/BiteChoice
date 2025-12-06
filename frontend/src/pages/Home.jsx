@@ -20,6 +20,14 @@ export default function Home() {
     maxPrice: 50,         
   });
 
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return "Good Morning,";
+    if (hour >= 12 && hour < 17) return "Good Afternoon,";
+    if (hour >= 17 && hour < 21) return "Good Evening,";
+    return "Good Night,";
+  };
+
   // --- 2. FETCH DATA ---
   useEffect(() => {
     const fetchData = async () => {
@@ -130,7 +138,7 @@ export default function Home() {
       <div className="px-6 pt-8 pb-4">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <p className="text-brand-brown font-medium text-sm">Good Morning,</p>
+            <p className="text-brand-brown font-medium text-sm">{greeting}</p>
             <h1 className="text-2xl font-bold text-brand-dark capitalize">{userPrefs.name}</h1>
           </div>
           <Link to="/profile">
@@ -397,4 +405,5 @@ export default function Home() {
 
     </div>
   );
+
 }
