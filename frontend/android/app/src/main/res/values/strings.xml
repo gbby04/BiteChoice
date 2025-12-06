@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name"> BiteChoice</string>
+    <string name="title_activity_main"> BiteChoice</string>
+    <string name="package_name">com.bitechoice.app</string>
+    <string name="custom_url_scheme">com.bitechoice.app</string>
+</resources>
