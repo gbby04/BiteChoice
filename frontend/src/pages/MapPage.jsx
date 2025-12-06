@@ -147,7 +147,22 @@ export default function MapPage() {
     return (
         <div className="bg-app-bg text-brand-dark antialiased h-screen flex flex-col overflow-hidden relative">
             
-            {/* ... (Your Header / Back Button Code stays the same) ... */}
+            {/* Top Navigation Overlay */}
+            <div className="absolute top-0 left-0 w-full p-6 z-20 pointer-events-none flex justify-between items-start">
+                {/* Back Button (Links back to Home) */}
+                <Link to="/home" className="pointer-events-auto p-3 bg-white/90 backdrop-blur-md rounded-2xl shadow-soft text-brand-dark hover:text-brand-caramel transition-colors">
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                </Link>
+
+                {/* Filter Button */}
+                <button className="pointer-events-auto p-3 bg-brand-dark text-white rounded-2xl shadow-soft shadow-brand-dark/20">
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                </button>
+            </div>
 
             {/* Map Container */}
             <div id="map" className="w-full h-full bg-stone-200">
@@ -184,4 +199,5 @@ export default function MapPage() {
             </div>
         </div>
     );
+
 }
