@@ -247,28 +247,32 @@ export default function Home() {
 
         <div className="space-y-4">
           {filteredRestaurants.map((item, index) => (
-            <div key={index} className="flex items-center bg-white p-3 rounded-3xl shadow-sm border border-stone-50 hover:shadow-soft transition-all active:scale-98">
-                <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
-                    <img src={item.image_url || 'https://via.placeholder.com/150'} alt={item.name} className="w-full h-full object-cover" />
-                </div>
-                <div className="ml-4 flex-1">
-                    <div className="flex justify-between items-start">
-                        <h3 className="font-bold text-brand-dark text-lg leading-tight">{item.name}</h3>
-                        <span className="text-xs font-bold text-brand-brown bg-stone-100 px-2 py-1 rounded-lg">
-                          {/* Convert meters to KM */}
-                          {item.dist_meters ? (item.dist_meters/1000).toFixed(1) + "km" : "Nearby"}
-                        </span>
-                    </div>
-                    <p className="text-sm text-stone-400 mb-2 truncate">{item.cuisine || item.cuisine_type}</p>
-                    <div className="flex items-center space-x-3">
-                        <div className="flex items-center text-brand-caramel font-bold text-sm">
-                            <span className="mr-1">★</span>
-                            {item.rating || 4.5} <span className="text-stone-300 font-normal ml-1"></span>
-                        </div>
-                        {item.is_halal && <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">Halal</span>}
-                    </div>
-                </div>
-            </div>
+          <Link 
+                  to={`/restaurant/${item.id}`} 
+                  state={{ distance: item.dist_meters }}
+                  key={index} 
+                  className="flex items-center bg-white p-3 rounded-3xl shadow-sm border border-stone-50 hover:shadow-soft transition-all active:scale-98">
+                  <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
+                      <img src={item.image_url || 'https://via.placeholder.com/150'} alt={item.name} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="ml-4 flex-1">
+                      <div className="flex justify-between items-start">
+                          <h3 className="font-bold text-brand-dark text-lg leading-tight">{item.name}</h3>
+                          <span className="text-xs font-bold text-brand-brown bg-stone-100 px-2 py-1 rounded-lg">
+                            {/* Convert meters to KM for display */}
+                            {item.dist_meters ? (item.dist_meters/1000).toFixed(1) + "km" : "Nearby"}
+                          </span>
+                      </div>
+                      <p className="text-sm text-stone-400 mb-2 truncate">{item.cuisine || item.cuisine_type}</p>
+                      <div className="flex items-center space-x-3">
+                          <div className="flex items-center text-brand-caramel font-bold text-sm">
+                              <span className="mr-1">★</span>
+                              {item.rating || 4.5} <span className="text-stone-300 font-normal ml-1"></span>
+                          </div>
+                          {item.is_halal && <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">Halal</span>}
+                      </div>
+                  </div>
+              </Link>
           ))}
           {filteredRestaurants.length === 0 && (
              <div className="text-center py-10 text-stone-400">
@@ -407,3 +411,4 @@ export default function Home() {
   );
 
 }
+
