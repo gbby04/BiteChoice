@@ -10,6 +10,11 @@ export default function RestaurantDetails() {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const location = useLocation();
+    const distance = location.state?.distance 
+        ? (location.state.distance / 1000).toFixed(1) + ' km' 
+        : 'Nearby'; // Fallback if user refreshed the page directly
+
     useEffect(() => {
         const fetchRestaurantDetails = async () => {
             try {
@@ -92,8 +97,8 @@ export default function RestaurantDetails() {
                         {restaurant.is_halal && (
                             <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">Halal</span>
                         )}
-                        <span className="px-3 py-1 bg-stone-100 text-stone-500 text-xs font-bold rounded-full">1.2 km</span>
-                        <span className="px-3 py-1 bg-stone-100 text-stone-500 text-xs font-bold rounded-full">Open Now</span>
+                        <span className="px-3 py-1 bg-stone-100 text-stone-500 text-xs font-bold rounded-full">{distance}</span>
+                        <span className={`px-3 py-1 text-xs font-bold rounded-full ${restaurant.is_open ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}> {restaurant.is_open ? 'Open Now' : 'Closed'}</span>
                     </div>
 
                     <hr className="my-6 border-stone-100" />
@@ -148,4 +153,5 @@ export default function RestaurantDetails() {
             </div>
         </div>
     );
+
 }
