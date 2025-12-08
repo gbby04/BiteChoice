@@ -8,6 +8,7 @@ const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
 export default function MapPage() {
     const [restaurants, setRestaurants] = useState([]);
     const [userLocation, setUserLocation] = useState(null); // Start null to wait for GPS
+    const navigate = useNagivate();
     const mapRef = useRef(null); // Keep track of the map instance
 
     // --- 1. GET USER LOCATION & DATA ---
@@ -137,8 +138,7 @@ export default function MapPage() {
 
                 // Optional: Click marker to scroll to card
                 marker.addListener("click", () => {
-                   // Logic to scroll the bottom cards
-                   console.log("Clicked", rest.name);
+                    navigate(`/restaurant/${rest.id}`);
                 });
             });
         }
@@ -195,5 +195,6 @@ export default function MapPage() {
     );
 
 }
+
 
 
