@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; // <--- Import Supabase
+import { supabase } from '../db'; // <--- Import Supabase
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -69,4 +69,5 @@ export default function Welcome() {
       </div>
     </div>
   );
+
 }
