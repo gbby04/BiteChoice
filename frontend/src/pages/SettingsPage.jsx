@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../db';
+import { supabase } from '../supabaseClient';
 
 export default function SettingsPage() {
     const navigate = useNavigate();
@@ -281,4 +281,5 @@ export default function SettingsPage() {
         </div>
     );
 }
+
 
