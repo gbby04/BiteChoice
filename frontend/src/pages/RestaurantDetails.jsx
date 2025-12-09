@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import FavoriteButton from '../components/FavoriteButton';
 
 export default function RestaurantDetails() {
     const { id } = useParams(); // Get the ID from the URL
@@ -27,6 +28,15 @@ export default function RestaurantDetails() {
 
                 if (restError) throw restError;
                 setRestaurant(restData);
+
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    await supabase.from('user_history').insert({
+                        user_id: user.id,
+                        restaurant_id: id,
+                        visited_at: new Date()
+                    });
+                }
 
                 // 2. Fetch Reviews for this restaurant
                 const { data: reviewData, error: reviewError } = await supabase
@@ -74,6 +84,10 @@ export default function RestaurantDetails() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                     </svg>
                 </button>
+
+                <div className="absolute top-6 right-6">
+                    <FavoriteButton restaurantId={restaurant.id} />
+                </div>
             </div>
 
             {/* --- CONTENT CONTAINER --- */}
@@ -100,7 +114,7 @@ export default function RestaurantDetails() {
                         <span className="px-3 py-1 bg-stone-100 text-stone-500 text-xs font-bold rounded-full">{distance}</span>
                         <span className={`px-3 py-1 text-xs font-bold rounded-full ${restaurant.is_open ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}> {restaurant.is_open ? 'Open Now' : 'Closed'}</span>
                     </div>
-
+                    
                     <hr className="my-6 border-stone-100" />
 
                     {/* Action Buttons */}
@@ -153,5 +167,4 @@ export default function RestaurantDetails() {
             </div>
         </div>
     );
-
 }
