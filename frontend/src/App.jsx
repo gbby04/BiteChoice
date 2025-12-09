@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LocationTracker from './components/LocationTracker';
+import { supabase } from '../supabaseClient';
 
 // === 1. ENTRY & AUTH PAGES ===
 import Welcome from './pages/Welcome.jsx';
