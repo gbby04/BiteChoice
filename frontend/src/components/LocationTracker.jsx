@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import { supabase } from '../supabaseClient';
+import { supabase } from '../db';
 
 export default function LocationTracker() {
     const navigate = useNavigate(); 
@@ -206,4 +206,5 @@ export default function LocationTracker() {
             </div>
         </div>
     );
+
 }
