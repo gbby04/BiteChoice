@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../dbt';
+import { supabase } from '../supabaseClient';
 import FavoriteButton from '../components/FavoriteButton';
 
 export default function RestaurantDetails() {
@@ -168,4 +168,5 @@ export default function RestaurantDetails() {
         </div>
     );
 }
+
 
