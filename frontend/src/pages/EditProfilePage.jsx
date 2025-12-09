@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; // <--- Import Supabase
+import { supabase } from '../db'; // <--- Import Supabase
 
 export default function EditProfilePage() {
     const navigate = useNavigate();
@@ -254,4 +254,5 @@ export default function EditProfilePage() {
             </form>
         </div>
     );
+
 }
