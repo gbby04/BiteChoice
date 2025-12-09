@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../db';
+import { supabase } from '../supabaseClient';
 
 export default function FavoriteButton({ restaurantId }) {
     const [isFav, setIsFav] = useState(false);
@@ -58,4 +58,5 @@ export default function FavoriteButton({ restaurantId }) {
         </button>
     );
 }
+
 
