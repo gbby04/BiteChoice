@@ -11,6 +11,9 @@ export default function SettingsPage() {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [locationEnabled, setLocationEnabled] = useState(true);
+    
+    // 🟢 NEW: Notification State
+    const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
     // 1. Load User Data
     useEffect(() => {
@@ -22,19 +25,24 @@ export default function SettingsPage() {
                     navigate('/login');
                     return;
                 }
-                setEmail(user.email); // Email comes from Auth, not Profile table
+                setEmail(user.email); 
 
                 // Get Profile Data
                 const { data: profile } = await supabase
                     .from('profiles')
-                    .select('full_name, location_enabled') // Make sure to add location_enabled column to DB if you want to save it!
+                    .select('full_name, location_enabled') 
                     .eq('id', user.id)
                     .single();
 
                 if (profile) {
                     setFullName(profile.full_name || '');
-                    // location_enabled might not exist yet if you haven't added the column, defaulting to true
                     if (profile.location_enabled !== undefined) setLocationEnabled(profile.location_enabled);
+                }
+
+                // 🟢 NEW: Load Notification Setting from Local Storage
+                const savedNotify = localStorage.getItem('bitechoice_notifications');
+                if (savedNotify === 'false') {
+                    setNotificationsEnabled(false);
                 }
 
             } catch (error) {
@@ -46,6 +54,11 @@ export default function SettingsPage() {
         loadSettings();
     }, [navigate]);
 
+    // 🟢 NEW: Handle Notification Toggle
+    const handleNotificationToggle = (checked) => {
+        setNotificationsEnabled(checked);
+        localStorage.setItem('bitechoice_notifications', checked); // Save instantly
+    };
 
     // 2. Save Changes (Profile Info)
     const handleSaveProfile = async () => {
@@ -58,7 +71,7 @@ export default function SettingsPage() {
                 .update({ 
                     full_name: fullName,
                     // If you added location_enabled column:
-                    // location_enabled: locationEnabled 
+                    location_enabled: locationEnabled 
                 })
                 .eq('id', user.id);
 
@@ -80,7 +93,7 @@ export default function SettingsPage() {
 
         try {
             const { error } = await supabase.auth.resetPasswordForEmail(email, {
-                redirectTo: window.location.origin + '/reset-password', // You need a page for this
+                redirectTo: window.location.origin + '/reset-password', 
             });
             if (error) throw error;
             alert("Check your email for the password reset link!");
@@ -90,25 +103,15 @@ export default function SettingsPage() {
         }
     };
 
-    // 4. Delete Account (Warning: This requires specific setup in Supabase to work fully)
+    // 4. Delete Account
     const handleDeleteAccount = async () => {
         const confirmDelete = window.prompt("Type 'DELETE' to confirm deleting your account permanently. This cannot be undone.");
         if (confirmDelete !== 'DELETE') return;
 
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            
-            // NOTE: Client-side deletion of the USER (Auth) is usually blocked for security.
-            // Standard practice: Delete the data, sign them out, and mark account 'deleted' in DB.
-            // Or use a Supabase Edge Function with Admin rights.
-            
-            // For this demo, we will just sign out and pretend.
-            // Real implementation requires: supabase.rpc('delete_user') [Server-side function]
-
             await supabase.auth.signOut();
             alert("Account scheduled for deletion. Goodbye!");
             navigate('/');
-
         } catch (error) {
             console.error("Delete failed:", error);
         }
@@ -158,7 +161,6 @@ export default function SettingsPage() {
                                 <svg className="w-5 h-5 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
-                                {/* Email is read-only usually */}
                                 <input 
                                     type="email" 
                                     value={email}
@@ -195,23 +197,30 @@ export default function SettingsPage() {
                             <svg className="w-5 h-5 text-stone-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
                         </button>
 
-                        {/* Toggle Example (UI Only for now) */}
+                        {/* 🟢 NEW: Notification Toggle */}
                         <div className="flex items-center justify-between p-4 rounded-2xl">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 bg-stone-100 rounded-full text-stone-500">
                                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                     </svg>
                                 </div>
                                 <div>
-                                    <span className="block font-medium text-brand-dark">Face ID</span>
-                                    <span className="text-xs text-brand-brown">Secure & fast login</span>
+                                    <span className="block font-medium text-brand-dark">Eating Alerts</span>
+                                    <span className="text-xs text-brand-brown">Popup when at restaurant</span>
                                 </div>
                             </div>
                             
                             <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                                <input type="checkbox" name="toggle" id="faceid-toggle" className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-stone-300"/>
-                                <label htmlFor="faceid-toggle" className="toggle-label block overflow-hidden h-5 rounded-full bg-stone-300 cursor-pointer"></label>
+                                <input 
+                                    type="checkbox" 
+                                    name="toggle" 
+                                    id="notify-toggle" 
+                                    checked={notificationsEnabled}
+                                    onChange={(e) => handleNotificationToggle(e.target.checked)}
+                                    className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-stone-300"
+                                />
+                                <label htmlFor="notify-toggle" className={`toggle-label block overflow-hidden h-5 rounded-full cursor-pointer ${notificationsEnabled ? 'bg-brand-caramel' : 'bg-stone-300'}`}></label>
                             </div>
                         </div>
 
@@ -240,9 +249,9 @@ export default function SettingsPage() {
                                 <input 
                                     type="checkbox" 
                                     id="location-toggle" 
-                                    className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-stone-300" 
                                     checked={locationEnabled}
                                     onChange={(e) => setLocationEnabled(e.target.checked)}
+                                    className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-stone-300" 
                                 />
                                 <label htmlFor="location-toggle" className={`toggle-label block overflow-hidden h-5 rounded-full cursor-pointer ${locationEnabled ? 'bg-brand-caramel' : 'bg-stone-300'}`}></label>
                             </div>
