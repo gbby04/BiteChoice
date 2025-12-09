@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; // <--- Import Supabase
+import { supabase } from '../supabaseClient'; 
 
 // --- Icons Components ---
 const IconHeart = ({ stroke = true }) => (
@@ -22,10 +22,9 @@ export default function FavouritePage() {
             try {
                 // 1. Get User
                 const { data: { user } } = await supabase.auth.getUser();
-                if (!user) return; // Handle not logged in
+                if (!user) return; 
 
                 // 2. Fetch Favorites AND the Restaurant details
-                // syntax: select(`restaurant_id, restaurants ( * )`)
                 const { data, error } = await supabase
                     .from('favorites')
                     .select(`
@@ -43,16 +42,14 @@ export default function FavouritePage() {
 
                 if (error) throw error;
 
-                // 3. Transform Data to match your UI structure
-                // Supabase returns nested object: { restaurants: { name: '...' } }
-                // We want flat object: { name: '...' }
+                // 3. Transform Data
                 const formattedData = data.map(item => ({
-                    id: item.restaurants.id, // Use Restaurant ID
+                    id: item.restaurants.id, 
                     name: item.restaurants.name,
                     type: item.restaurants.cuisine_type,
                     rating: item.restaurants.rating || '4.5',
                     image: item.restaurants.image_url || 'https://via.placeholder.com/150',
-                    dist: 'Nearby' // Favorites query doesn't calc distance cheaply, using static text
+                    dist: 'Nearby' 
                 }));
 
                 setFavorites(formattedData); 
@@ -67,16 +64,18 @@ export default function FavouritePage() {
     }, []);
 
 
-    // --- UNLIKE Logic with Animation & DB Update ---
-    const handleUnlike = async (restaurantId) => {
-        // 1. Trigger Animation first (UI feels instant)
+    // --- UNLIKE Logic ---
+    const handleUnlike = async (e, restaurantId) => {
+        // 🟢 PREVENT NAVIGATION (Stop the click from bubbling to the Link)
+        e.preventDefault(); 
+        e.stopPropagation();
+
+        // 1. Trigger Animation
         setIsRemoving(prev => ({ ...prev, [restaurantId]: true }));
 
         try {
-            // 2. Get User
             const { data: { user } } = await supabase.auth.getUser();
 
-            // 3. Delete from Supabase
             const { error } = await supabase
                 .from('favorites')
                 .delete()
@@ -97,7 +96,6 @@ export default function FavouritePage() {
 
         } catch (error) {
             console.error("Error removing favorite:", error);
-            // Optional: Revert animation if error occurs
             setIsRemoving(prev => {
                 const newState = { ...prev };
                 delete newState[restaurantId];
@@ -151,9 +149,10 @@ export default function FavouritePage() {
                 {/* Favorites List */}
                 <div id="favorites-list" className="space-y-4">
                     {favorites.map(item => (
-                        <div 
+                        <Link 
+                            to={`/restaurant/${item.id}`} // 🟢 MAKE CARD CLICKABLE
                             key={item.id}
-                            className={`relative flex items-center bg-white p-3 rounded-3xl shadow-sm border border-stone-50 transition-all duration-300 ${isRemoving[item.id] ? 'animate-[fade-out_0.4s_ease-out_forwards]' : ''}`}
+                            className={`relative flex items-center bg-white p-3 rounded-3xl shadow-sm border border-stone-50 transition-all duration-300 active:scale-98 ${isRemoving[item.id] ? 'animate-[fade-out_0.4s_ease-out_forwards]' : ''}`}
                         >
                             <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 relative">
                                 <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
@@ -174,10 +173,13 @@ export default function FavouritePage() {
                             </div>
 
                             {/* Unlike Button */}
-                            <button onClick={() => handleUnlike(item.id)} className="absolute top-4 right-4 p-2 rounded-full text-red-500 hover:bg-red-50 transition-colors active:scale-90">
+                            <button 
+                                onClick={(e) => handleUnlike(e, item.id)} // 🟢 PASS EVENT 'e'
+                                className="absolute top-4 right-4 p-2 rounded-full text-red-500 hover:bg-red-50 transition-colors active:scale-90"
+                            >
                                 <IconHeart stroke={false} />
                             </button>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
