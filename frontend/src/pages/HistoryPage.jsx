@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; // <--- Import Supabase
+import { supabase } from '../db'; // <--- Import Supabase
 
 // --- Component for a single History Card ---
 const HistoryCard = ({ item }) => {
@@ -224,4 +224,5 @@ export default function HistoryPage() {
             </nav>
         </div>
     );
+
 }
