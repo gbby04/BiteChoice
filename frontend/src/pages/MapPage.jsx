@@ -138,7 +138,7 @@ export default function MapPage() {
 
                 // Optional: Click marker to scroll to card
                 marker.addListener("click", () => {
-                    navigate(`/restaurant/${rest.id}`, {state: { distance: rest.dist_meters }});
+                   navigate(`/restaurant/${rest.id}`, {state: { distance: rest.dist_meters }});
                 });
             });
         }
@@ -170,7 +170,7 @@ export default function MapPage() {
             <div className="absolute bottom-0 left-0 w-full z-20 pb-8 pt-4 bg-gradient-to-t from-app-bg via-app-bg/10 to-transparent">
                 <div className="flex overflow-x-auto hide-scrollbar px-6 gap-4 pb-2 snap-x snap-mandatory">
                     {restaurants.map((item, index) => (
-                        <Link to={`/restaurant/${item.id}`} state={{ distance: item.dist_meters }} 
+                        <Link to={`/restaurant/${item.id}`} state={{ distance: item.dist_meters }}
                             key={index} className="snap-center shrink-0 w-72 bg-white p-3 rounded-2xl shadow-card border border-stone-50 flex gap-3 cursor-pointer hover:scale-[1.02] transition-transform">
                             {/* Make sure your DB has an 'image_url' column! */}
                             <img src={item.image_url || 'https://via.placeholder.com/150'} className="w-20 h-20 rounded-xl object-cover bg-stone-100" alt={item.name} />
@@ -193,8 +193,8 @@ export default function MapPage() {
             </div>
         </div>
     );
-
 }
+
 
 
 
