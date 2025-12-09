@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; // <--- Import Supabase
+import { supabase } from '../db'; // <--- Import Supabase
 // import StarRating from '../components/StarRating'; // <--- Use your component!
 
 export default function ReviewPage() {
@@ -209,4 +209,5 @@ export default function ReviewPage() {
 
         </div>
     );
+
 }
