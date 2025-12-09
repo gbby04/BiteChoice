@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../supabaseClient';
+import { supabase } from '../db';
 
 export default function PremiumPlanPage() {
     const navigate = useNavigate();
@@ -202,4 +202,5 @@ export default function PremiumPlanPage() {
             </div>
         </div>
     );
+
 }
