@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; // <--- Import Supabase
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'; // Added useSearchParams
+import { supabase } from '../supabaseClient'; 
 
 // --- Utility Data ---
 const RATING_TEXTS = [
@@ -28,6 +28,8 @@ const Star = ({ onClick, isFilled }) => (
 
 export default function WriteReviewPage() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams(); 
+    const preSelectedId = searchParams.get('restaurantId'); 
     
     // Form State
     const [rating, setRating] = useState(0);
@@ -42,13 +44,36 @@ export default function WriteReviewPage() {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState(null);
 
+    // --- 🟢 NEW: HANDLE URL PARAMETER ---
+    // If user comes from the "Are you eating here?" popup, this auto-fills the form
+    useEffect(() => {
+        if (preSelectedId) {
+            setSelectedRestaurantId(preSelectedId);
+
+            // Fetch the specific restaurant name to show in the input box
+            const fetchPreSelectedName = async () => {
+                const { data, error } = await supabase
+                    .from('restaurants')
+                    .select('name')
+                    .eq('id', preSelectedId)
+                    .single();
+                
+                if (data && !error) {
+                    setSearchTerm(data.name); // Shows "Burger Lab" instead of blank
+                }
+            };
+            fetchPreSelectedName();
+        }
+    }, [preSelectedId]);
+    // ------------------------------------
+
     // 1. Fetch Restaurants for the Dropdown Search
     useEffect(() => {
         const fetchRestaurants = async () => {
             const { data } = await supabase
                 .from('restaurants')
                 .select('id, name, image_url')
-                .limit(50); // Just get a few for now
+                .limit(50); 
             setRestaurantList(data || []);
         };
         fetchRestaurants();
@@ -161,7 +186,7 @@ export default function WriteReviewPage() {
                         </div>
 
                         {/* Dropdown Results */}
-                        {showDropdown && searchTerm && (
+                        {showDropdown && searchTerm && !selectedRestaurantId && (
                             <div className="absolute w-full bg-white mt-2 rounded-2xl shadow-xl z-50 max-h-60 overflow-y-auto border border-stone-100">
                                 {filteredRestaurants.length > 0 ? (
                                     filteredRestaurants.map(r => (
