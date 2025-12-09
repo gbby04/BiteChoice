@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../db'; // <--- 1. Import Supabase
+import { supabase } from '../supabaseClient'; // <--- 1. Import Supabase
 
 export default function Home() {
   // --- 1. STATE MANAGEMENT ---
@@ -402,6 +402,7 @@ export default function Home() {
     </div>
   );
 }
+
 
 
 
