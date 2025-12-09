@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; 
+import { supabase } from '../db'; 
 
 // --- Icons Components ---
 const IconHeart = ({ stroke = true }) => (
@@ -219,3 +219,4 @@ export default function FavouritePage() {
         </div>
     );
 }
+
