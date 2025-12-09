@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'; // Added useSearchParams
-import { supabase } from '../db'; 
+import { supabase } from '../supabaseClient'; 
 
 // --- Utility Data ---
 const RATING_TEXTS = [
@@ -262,4 +262,5 @@ export default function WriteReviewPage() {
         </div>
     );
 }
+
 
