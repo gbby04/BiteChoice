@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; // <--- Import Supabase
+import { supabase } from '../db'; // <--- Import Supabase
 
 // --- Eye Icon Component ---
 const EyeIcon = ({ isVisible }) => (
@@ -196,4 +196,5 @@ export default function LoginPage() {
             </div>
         </div>
     );
+
 }
