@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LocationTracker from './components/LocationTracker';
 
 // === 1. ENTRY & AUTH PAGES ===
 import Welcome from './pages/Welcome.jsx';
@@ -22,12 +23,13 @@ import SettingsPage from './pages/SettingsPage.jsx';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter>\
+      
       <Routes>
         
         {/* --- ENTRY POINT --- */}
         <Route path="/" element={<Welcome />} />
-        
+        <LocationTracker /> {/* Global Location Tracker */}
         {/* --- AUTHENTICATION --- */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
