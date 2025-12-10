@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient'; // <--- Import Supabase
+import googleIcon from '../assets/google-icon.png';
+import appleIcon from '../assets/apple-icon.png';
 
 // --- Eye Icon Component ---
 const EyeIcon = ({ isVisible }) => (
@@ -176,12 +178,12 @@ export default function LoginPage() {
                         <button 
                             onClick={() => handleSocialLogin('google')}
                             className="social-button google flex items-center justify-center h-12 w-12 rounded-full border border-theme-social-border bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 transition-colors duration-200" aria-label="Login with Google">
-                            <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google" className="h-8 w-8" />
+                            <img src={googleIcon} alt="Google" className="h-8 w-8" />
                         </button>
                         <button 
                             onClick={() => handleSocialLogin('apple')}
                             className="social-button apple flex items-center justify-center h-12 w-12 rounded-full border border-theme-social-border bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 transition-colors duration-200" aria-label="Login with Apple">
-                            <img src="https://img.icons8.com/ios-filled/50/000000/mac-os.png" alt="Apple" className="h-8 w-8" />
+                            <img src={appleIcon} alt="Apple" className="h-8 w-8" />
                         </button>
                     </div>
                 </div>
@@ -198,5 +200,6 @@ export default function LoginPage() {
     );
 
 }
+
 
 
