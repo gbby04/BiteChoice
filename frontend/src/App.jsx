@@ -14,7 +14,7 @@ import HistoryPage from './pages/HistoryPage.jsx';
 import ReviewPage from './pages/ReviewPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 
-// === 3. FEATURE PAGES (No Bottom Navbar usually) ===
+// === 3. FEATURE PAGES ===
 import MapPage from './pages/MapPage.jsx';
 import WriteReviewPage from './pages/WriteReviewPage.jsx';
 import PremiumPlanPage from './pages/PremiumPlanPage.jsx';
@@ -23,13 +23,13 @@ import SettingsPage from './pages/SettingsPage.jsx';
 
 export default function App() {
   return (
-    <BrowserRouter>\
+    <BrowserRouter>
+      <LocationTracker /> 
       
       <Routes>
-        
         {/* --- ENTRY POINT --- */}
         <Route path="/" element={<Welcome />} />
-        <LocationTracker /> {/* Global Location Tracker */}
+        
         {/* --- AUTHENTICATION --- */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
