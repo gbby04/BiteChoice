@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
 // 1. Initialize Supabase (Put these in a .env file in production)
-const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY');
+const supabase = createClient('https://vmkihbwdtjdookdrlibf.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZta2loYndkdGpkb29rZHJsaWJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NDUxMTMsImV4cCI6MjA4MDQyMTExM30.uZ9f0utHXw1IGtqdXPIPL2iwSMxwrJBFjlY8HokS3Uo');
 
 export default function MapPage() {
     const [restaurants, setRestaurants] = useState([]);
@@ -194,6 +194,7 @@ export default function MapPage() {
         </div>
     );
 }
+
 
 
 
