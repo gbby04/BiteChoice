@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { supabase } from '../supabaseClient';
+import notificationSound from '../assets/notification.mp3';
 
 export default function LocationTracker() {
     const navigate = useNavigate(); 
@@ -16,8 +17,7 @@ export default function LocationTracker() {
 
     // --- 🟢 1. SOUND FUNCTION (Define it here) ---
     const playNotificationSound = () => {
-        // Ensure you have 'notification.mp3' in your public folder
-        const audio = new Audio('/notification.mp3'); 
+        const audio = new Audio(notificationSound); 
         audio.play().catch(e => console.log("Audio play failed", e));
     };
 
@@ -208,4 +208,5 @@ export default function LocationTracker() {
     );
 
 }
+
 
