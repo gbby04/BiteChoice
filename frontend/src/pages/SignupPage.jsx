@@ -94,7 +94,7 @@ export default function SignupPage() {
 
             {/* Top decorative wave and Back link */}
             <div className="relative w-full h-40 overflow-hidden" style={{ backgroundImage: "url('data:image/svg+xml;utf8,<svg viewBox=\\'0 0 1440 320\\' xmlns=\\'http://www.w3.org/2000/svg\\'><path fill=\\'%23FDF9F6\\' fill-opacity=\\'1\\' d=\\'M0,192L80,186.7C160,181,320,171,480,181.3C640,192,800,224,960,224C1120,224,1280,192,1360,176L1440,160L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z\\'></path></svg>')", backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
-                <Link to="/" className="absolute top-4 left-4 text-theme-arrow font-semibold hover:text-theme-arrow-hover transition-colors duration-200">
+                <Link to="/" className="absolute top-12 left-6 p-2 text-theme-arrow font-semibold hover:text-theme-arrow-hover transition-colors duration-200">
                     &larr; Back
                 </Link>
             </div>
@@ -231,5 +231,6 @@ export default function SignupPage() {
     );
 
 }
+
 
 
