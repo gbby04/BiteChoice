@@ -5,7 +5,7 @@ import { supabase } from '../supabaseClient';
 export default function MapPage() {
     const [restaurants, setRestaurants] = useState([]);
     const [userLocation, setUserLocation] = useState(null); // Start null to wait for GPS
-    const navigate = useNagivate();
+    const navigate = useNavigate();
     const mapRef = useRef(null); // Keep track of the map instance
 
     // --- 1. GET USER LOCATION & DATA ---
@@ -191,6 +191,7 @@ export default function MapPage() {
         </div>
     );
 }
+
 
 
 
