@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient'; // <--- Import Supabase
+import logoImg from '../assets/logo.png';
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function Welcome() {
           <div className="w-48 md:w-64 transform transition hover:scale-105 duration-500">
              {/* Ensure logo.png is in your public folder */}
             <img 
-              src="/logo.png" 
+              src={logoImg} 
               alt="BiteChoice Logo" 
               className="w-full h-auto drop-shadow-2xl"
             />
@@ -71,4 +72,5 @@ export default function Welcome() {
   );
 
 }
+
 
