@@ -50,14 +50,14 @@ export default function Welcome() {
         <div className="w-full flex-shrink-0 flex flex-col space-y-4 pb-4 md:pb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           
           {/* Main Action: Go to Login (or Signup flow) */}
-          <Link to="/login" className="group relative flex w-full justify-center items-center rounded-2xl bg-brand-dark px-6 py-4 text-lg font-bold text-white shadow-lg shadow-brand-dark/30 transition-all duration-300 hover:shadow-brand-dark/50 hover:-translate-y-1 active:scale-95">
+          <Link to="/signup" className="group relative flex w-full justify-center items-center rounded-2xl bg-brand-dark px-6 py-4 text-lg font-bold text-white shadow-lg shadow-brand-dark/30 transition-all duration-300 hover:shadow-brand-dark/50 hover:-translate-y-1 active:scale-95">
             Let's get started
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </Link>
           
-          <Link to="/signup" className="flex w-full justify-center items-center rounded-2xl bg-white text-brand-dark border border-stone-100 px-6 py-4 text-lg font-semibold shadow-sm hover:bg-stone-50 active:scale-95 transition-transform">
+          <Link to="/login" className="flex w-full justify-center items-center rounded-2xl bg-white text-brand-dark border border-stone-100 px-6 py-4 text-lg font-semibold shadow-sm hover:bg-stone-50 active:scale-95 transition-transform">
             I already have an account
           </Link>
 
@@ -72,5 +72,6 @@ export default function Welcome() {
   );
 
 }
+
 
 
